@@ -15,22 +15,15 @@ npm install     # 第一次运行前安装依赖
 npm run dev     # 启动开发服务器，按提示打开 http://localhost:5173
 ```
 
-## 二、发布到 GitHub Pages（一次性设置，约5分钟）
+## 二、发布到 GitHub Pages（已完成配置）
 
-1. 在 GitHub 上新建一个**公开**仓库（如 `qiuzhao-2027`），不要勾选自动生成 README。
-2. 在本目录执行（把 `你的用户名/仓库名` 换成你的）：
+仓库地址：https://github.com/Tanvish-Chen/Autumn_recruitment
+上线地址（Pages 开启后自动生成）：**https://tanvish-chen.github.io/Autumn_recruitment/**
 
-```bash
-git init
-git add .
-git commit -m "init: 秋招作战室"
-git branch -M main
-git remote add origin https://github.com/你的用户名/仓库名.git
-git push -u origin main
-```
+首次设置（只需一次）：
 
-3. 打开仓库页面 → **Settings → Pages → Build and deployment → Source 选择 `GitHub Actions`**。
-4. 等 Actions 跑完（约1分钟），访问 `https://你的用户名.github.io/仓库名/` 即可。
+1. 打开仓库页面 → **Settings → Pages → Build and deployment → Source 选择 `GitHub Actions`**。
+2. 等 Actions 跑完（约1分钟），访问上面的上线地址。
 
 之后每次改动 push 到 main，网站会**自动重新发布**。
 
@@ -70,6 +63,16 @@ git push -u origin main
 ```bash
 git add . && git commit -m "更新：XX公司网申时间" && git push
 ```
+
+## 五、快速更新速查
+
+| 要做什么 | 怎么做 |
+|----------|--------|
+| 加一家公司 | `src/data/companies.js` 的 `companies` 数组里加一个对象（照抄格式即可） |
+| 官方公告出了、时间确定了 | `src/data/timeline.js` 找到对应事件，改 `date` 并把 `status` 改成 `confirmed` |
+| 加自定义提醒 | 直接在网站「秋招日历」页点「自定义事件」，无需改代码 |
+| 改完发布 | `git add . && git commit -m "说明" && git push`，1分钟后生效 |
+| 换电脑迁移 | 装 Node.js → clone 本仓库 → `npm install` → 浏览器数据用「个人档案」页导出/导入 |
 
 ## 五、信息时效性说明
 
