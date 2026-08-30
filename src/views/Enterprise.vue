@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { companies, phdPrograms, directionMap, enterpriseFlow } from '../data/companies'
 import { useStore } from '../composables/useStore'
+import { nowcoderSearch, githubSearch, webSearch, codetopHome } from '../data/examResources'
 
 const store = useStore()
 const filterNature = ref('全部')
@@ -105,6 +106,10 @@ function quickAdd(c) {
             <div class="co-actions">
               <a v-if="c.url && c.url.startsWith('http')" :href="c.url" target="_blank" class="co-link">官网投递 →</a>
               <span v-else class="co-link qz-muted">{{ c.url }}</span>
+              <span class="co-exam">
+                <a :href="nowcoderSearch(c.name)" target="_blank" class="co-link" title="牛客面经搜索">📚真题</a>
+                <a :href="codetopHome" target="_blank" class="co-link" title="CodeTop高频题频率榜">高频题</a>
+              </span>
               <el-button size="small" text type="primary" @click="quickAdd(c)">加入看板</el-button>
             </div>
           </div>
@@ -163,6 +168,7 @@ function quickAdd(c) {
 .co-dept { font-size: 12.5px; color: #444; margin-top: 8px; font-weight: 600; }
 .co-note { font-size: 12.5px; color: var(--qz-text-sub); margin-top: 6px; line-height: 1.7; flex: 1; }
 .co-phd { margin-top: 8px; font-size: 12.5px; color: #b45309; background: #fffbeb; border-radius: 6px; padding: 5px 8px; }
-.co-actions { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; }
+.co-actions { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 6px; }
 .co-link { font-size: 12.5px; color: var(--qz-primary); text-decoration: none; }
+.co-exam { display: inline-flex; gap: 8px; flex-shrink: 0; }
 </style>
