@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { techInterview, civilExam } from '../data/interview'
+import { techInterview, civilExam, crossTrack } from '../data/interview'
 
 const tab = ref('tech')
 </script>
@@ -61,6 +61,18 @@ const tab = ref('tech')
           <el-table-column prop="q" label="问题" width="280" />
           <el-table-column prop="a" label="回答思路" />
         </el-table>
+      </div>
+
+      <div class="qz-card">
+        <h3>🧭 跨界赛道准备（车企/游戏/具身智能/科研机构）</h3>
+        <el-collapse>
+          <el-collapse-item v-for="c in crossTrack" :key="c.track" :name="c.track">
+            <template #title><b>{{ c.track }}</b></template>
+            <ul style="line-height: 2; padding-left: 20px; margin: 0">
+              <li v-for="(p, i) in c.points" :key="i">{{ p }}</li>
+            </ul>
+          </el-collapse-item>
+        </el-collapse>
       </div>
     </div>
 
