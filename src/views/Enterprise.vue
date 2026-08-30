@@ -8,19 +8,24 @@ const filterNature = ref('全部')
 const filterCity = ref('全部')
 const filterMatch = ref(0)
 
-const natures = ['全部', '私企大厂', 'AI创企', '国企央企', '科研机构', '外企']
-const cities = ['全部', '北京', '上海', '杭州', '苏州', '南京', '多地']
+const natures = ['全部', '私企大厂', 'AI创企', '智能驾驶/车企', '游戏公司', '国企央企', '科研机构', '外企', '制造/家电']
+const cities = ['全部', '北京', '上海', '杭州', '苏州', '南京', '多地', '其他城市']
+const TARGET_CITIES = ['北京', '上海', '杭州', '苏州', '南京']
 const matchLabel = { 3: '★★★ 高度对口', 2: '★★☆ 方向相关', 1: '★☆☆ 备选' }
+
+function cityMatch(companyCity, filter) {
+  if (filter === '全部') return true
+  const c = companyCity || ''
+  const isMulti = c.includes('多地') || c.includes('均有') || c.includes('/')
+  if (filter === '多地') return isMulti
+  if (filter === '其他城市') return !isMulti && !TARGET_CITIES.some(t => c.includes(t))
+  return c.includes(filter)
+}
 
 const filtered = computed(() =>
   companies
     .filter(c => filterNature.value === '全部' || c.nature === filterNature.value)
-    .filter(c => {
-      if (filterCity.value === '全部') return true
-      const city = c.city || ''
-      if (filterCity.value === '多地') return city.includes('多地') || city.includes('均有')
-      return city.includes(filterCity.value)
-    })
+    .filter(c => cityMatch(c.city, filterCity.value))
     .filter(c => c.match >= filterMatch.value)
     .sort((a, b) => b.match - a.match)
 )
